@@ -12,5 +12,82 @@
     "title": "About Me",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "contents.html",
+    "href": "contents.html",
+    "title": "Contents",
+    "section": "",
+    "text": "Chapter 1: Getting Start\n[Chapter 2: Working with Packages, Importing, and Exporting]"
+  },
+  {
+    "objectID": "contents.html#quarto",
+    "href": "contents.html#quarto",
+    "title": "Contents",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "contents.html#running-code",
+    "href": "contents.html#running-code",
+    "title": "Contents",
+    "section": "Running Code",
+    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).\nChapter 1"
+  },
+  {
+    "objectID": "contents.html#r-chunk",
+    "href": "contents.html#r-chunk",
+    "title": "Contents",
+    "section": "R Chunk",
+    "text": "R Chunk\nCreate a data frame in R.\n\nlibrary(reticulate)\nlibrary(ggplot2)\nmy_r_data &lt;- data.frame(\n  x = c(1, 2, 3, 4, 5),\n  y = c(10, 20, 15, 25, 30)\n)\nprint(my_r_data)\n\n  x  y\n1 1 10\n2 2 20\n3 3 15\n4 4 25\n5 5 30"
+  },
+  {
+    "objectID": "contents.html#python-chunk",
+    "href": "contents.html#python-chunk",
+    "title": "Contents",
+    "section": "Python Chunk",
+    "text": "Python Chunk\nAccess the R data frame using r.my_r_data, modify it, and save a new variable.\n\n# The R data frame automatically converts to a Pandas DataFrame\npy_df = r.my_r_data\npy_df['z'] = py_df['y'] * 2\nprint(py_df)\n\n{'x': [1.0, 2.0, 3.0, 4.0, 5.0], 'y': [10.0, 20.0, 15.0, 25.0, 30.0], 'z': [10.0, 20.0, 15.0, 25.0, 30.0, 10.0, 20.0, 15.0, 25.0, 30.0]}"
+  },
+  {
+    "objectID": "contents.html#back-to-r",
+    "href": "contents.html#back-to-r",
+    "title": "Contents",
+    "section": "Back to R",
+    "text": "Back to R\nAccess the modified Python DataFrame using py\\$py_df.\n\nfinal_data &lt;- py$py_df\nprint(final_data$z)\n\n [1] 10 20 15 25 30 10 20 15 25 30"
+  },
+  {
+    "objectID": "chapter1.html",
+    "href": "chapter1.html",
+    "title": "Chapter 1",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "chapter1.html#quarto",
+    "href": "chapter1.html#quarto",
+    "title": "Chapter 1",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "chapter1.html#running-code",
+    "href": "chapter1.html#running-code",
+    "title": "Chapter 1",
+    "section": "Running Code",
+    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
+  },
+  {
+    "objectID": "contents.html#book-1-introducing-r",
+    "href": "contents.html#book-1-introducing-r",
+    "title": "Contents",
+    "section": "",
+    "text": "Chapter 1: Getting Start\n[Chapter 2: Working with Packages, Importing, and Exporting]"
+  },
+  {
+    "objectID": "contents.html#book-2-describing-data",
+    "href": "contents.html#book-2-describing-data",
+    "title": "Contents",
+    "section": "Book 2: Describing Data",
+    "text": "Book 2: Describing Data\n\n[Chapter 1: Getting GraphicS]\n[Chapter 2: Finding Your Center]"
   }
 ]

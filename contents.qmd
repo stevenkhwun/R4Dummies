@@ -1,0 +1,16 @@
+---
+title: "Contents"
+format: html
+---
+
+## Book 1: Introducing R
+
+- [Chapter 1: Getting Start](chapter1.qmd)
+- [Chapter 2: Working with Packages, Importing, and Exporting]
+
+## Book 2: Describing Data
+
+- [Chapter 1: Getting GraphicS]
+- [Chapter 2: Finding Your Center]
+
+
