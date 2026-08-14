@@ -1,25 +1,44 @@
 ---
-title: "Chapter 1"
+title: "Chapter 1: Basic R Operation"
 format: html
 ---
 
-## Quarto
+## Windows file path in R
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Every time you start an R session, you will be directed to a default working directory depends on how you starting the session.
 
-## Running Code
+**The Working Directory**
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+In order to know the path to your working directory, type
 
 ```{r}
-1 + 1
+getwd()
 ```
+
+**Set Working Directory**
 
 You can add options to executable code like this
 
 ```{r}
-#| echo: false
-2 * 2
+#| eval: false
+setwd("D:/GitHub/R4Dummies/docs")
+setwd("D:\\GitHub\\R4Dummies\\docs")
+x = 1+2
+x
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+You can check the working directory by typing:
+
+```{r}
+getwd()
+```
+
+```{r}
+#| eval: false
+
+# This code is shown in the final report, but it is never executed/run
+x <- 10 + 5
+print(x)
+```
+
+
