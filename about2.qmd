@@ -5,3 +5,5 @@ title: "About Me"
 This is the `about.qmd` with the yml `title: "About Me"`.
 
 This page correspond to the `About Me` tape on the top.
+
+$\binom{N}{R}$

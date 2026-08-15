@@ -134,3 +134,55 @@ beatles[2]
 beatles[2:3]    # for consecutive components
 beatles[c(2,4)]  # for non-consecutive components
 ```
+
+### *Numerical vectors*
+
+In addition to `c()`, R provides two shortcut functions for creating numerical vectors. One, `seq()`, as showed earlier. Without the third argument sequence increases by 1:
+
+```{r}
+y <- seq(5,40)
+y
+```
+
+For creating a numerical vector whose elements increase by 1, the code can be simplified as follows:
+
+```{r}
+y <- 5:40
+y
+```
+
+Another function, `rep()`, creates a vector of repeating values:
+
+```{r}
+quadrifecta <- c(8,9,6,4)
+repeated_quadrifecta <- rep(quadrifecta,3)
+repeated_quadrifecta
+```
+
+You can also supply a vector as the second argument and this vector specifies the number of repetitions for each element.
+
+```{r}
+rep_vector <- c(1,2,3,4)
+repeated_quadrifecta <- rep(quadrifecta,rep_vector)
+repeated_quadrifecta
+```
+
+The first element repeats once; the second, twice; the third, three times; and the fourth, four times.
+
+You can use `append()` to add an item at teh end of a vector:
+
+```{r}
+xx <- 3:5
+xx
+```
+
+```{r}
+xx <- append(xx,6)
+xx
+```
+
+You get the number of items in a vector by:
+
+```{r}
+length(xx)
+```

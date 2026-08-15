@@ -5,10 +5,29 @@ format: html
 
 ## Book 1: Introducing R
 
-- [Chapter 1: Getting Start](chapter1.qmd)
+- [Chapter 1: Getting Start](chapter_1-01.qmd)
 - \[Chapter 2: Working with Packages, Importing, and Exporting\]
 
 ## Book 2: Describing Data
 
-- \[Chapter 1: Getting GraphicS\]
+- \[Chapter 1: Getting Graphics\]
 - \[Chapter 2: Finding Your Center\]
+- \[Chapter 3: Deviating from the Average\]
+- \[Chapter 4: Meeting Standards and Standings\]
+- \[Chapter 5: Summarizing It All\]
+- \[Chapter 6: What's Normal?\]
+
+## Book 3: Analyzing Data
+
+- \[Chapter 1: The Confidence Game: Estimation\]
+- \[Chapter 2: One-Sample Hypothesis Testing\]
+- \[Chapter 3: Two-Sample Hypothesis Testing\]
+- \[Chapter 4: Testing More than Two Samples\]
+- \[Chapter 5: More Complicated Testing\]
+- \[Chapter 6: Regression: Linear, Multiple, and the General Linear Model\]
+- \[Chapter 7: Correlation: The Rise and Fall of Relationships\]
+- \[Chapter 8: Curvilinear Regression: When Relationships Get Complicated\]
+- \[Chapter 9: In Due Time\]
+- \[Chapter 10: Non-Parametric Statistics\]
+- \[Chapter 11: Introducing Probability\]
+- \[Chapter 12: Probability Meets Regression: Logistic Regression\]
