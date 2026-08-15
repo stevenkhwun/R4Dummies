@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "About This Website",
     "section": "",
-    "text": "This is the index.qmd with yml `title: “About This Website”.\nThis page should correspond to the Home tape at the top.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "This is the index.qmd with yml title: \"About This Website\".\nThis page should correspond to the R4Dummies tape at the top.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About Me",
+    "title": "Kaka",
     "section": "",
-    "text": "This is the about.qmd with the yml title: \"About Me\".\nThis page correspond to the About Me tape on the top."
+    "text": "My name is Kaka.\nI am pretty.\nAnd I know it."
   },
   {
     "objectID": "contents.html",
@@ -60,7 +60,7 @@
     "href": "chapter1.html",
     "title": "Chapter 1: Basic R Operation",
     "section": "",
-    "text": "Every time you start an R session, you will be directed to a default working directory depends on how you starting the session.\nThe Working Directory\nIn order to know the path to your working directory, type\n\ngetwd()\n\n[1] \"D:/GitHub/R4Dummies\"\n\n\nSet Working Directory\nYou can set the working directory as below:\n\n# Code not evaluated\nsetwd(\"D:/GitHub/R4Dummies/docs\")\n\nSince R uses \\ as an escape character, you can type the following code instead.\n\n# Code not evaluated\nsetwd(\"D:\\\\GitHub\\\\R4Dummies\\\\docs\")\n\nObjects in the environment by ls()\nIn order to see the objects in the environment, you can type the following. As no object created yet, the output is character(0).\n\nls()\n\ncharacter(0)"
+    "text": "Every time you start an R session, you will be directed to a default working directory depends on how you starting the session.\n\n\nIn order to know the path to your working directory, type\n\ngetwd()\n\n[1] \"D:/GitHub/R4Dummies\"\n\n\n\n\n\nYou can set the working directory as below:\n\n# Code not evaluated\nsetwd(\"D:/GitHub/R4Dummies/docs\")\n\nSince R uses \\ as an escape character, you can type the following code instead.\n\n# Code not evaluated\nsetwd(\"D:\\\\GitHub\\\\R4Dummies\\\\docs\")\n\n\n\n\nIn order to see the objects in the environment, you can type the following. As no object created yet, the output is character(0).\n\nls()\n\ncharacter(0)"
   },
   {
     "objectID": "chapter1.html#quarto",
@@ -95,7 +95,7 @@
     "href": "chapter1.html#windows-file-path-in-r",
     "title": "Chapter 1: Basic R Operation",
     "section": "",
-    "text": "Every time you start an R session, you will be directed to a default working directory depends on how you starting the session.\nThe Working Directory\nIn order to know the path to your working directory, type\n\ngetwd()\n\n[1] \"D:/GitHub/R4Dummies\"\n\n\nSet Working Directory\nYou can set the working directory as below:\n\n# Code not evaluated\nsetwd(\"D:/GitHub/R4Dummies/docs\")\n\nSince R uses \\ as an escape character, you can type the following code instead.\n\n# Code not evaluated\nsetwd(\"D:\\\\GitHub\\\\R4Dummies\\\\docs\")\n\nObjects in the environment by ls()\nIn order to see the objects in the environment, you can type the following. As no object created yet, the output is character(0).\n\nls()\n\ncharacter(0)"
+    "text": "Every time you start an R session, you will be directed to a default working directory depends on how you starting the session.\n\n\nIn order to know the path to your working directory, type\n\ngetwd()\n\n[1] \"D:/GitHub/R4Dummies\"\n\n\n\n\n\nYou can set the working directory as below:\n\n# Code not evaluated\nsetwd(\"D:/GitHub/R4Dummies/docs\")\n\nSince R uses \\ as an escape character, you can type the following code instead.\n\n# Code not evaluated\nsetwd(\"D:\\\\GitHub\\\\R4Dummies\\\\docs\")\n\n\n\n\nIn order to see the objects in the environment, you can type the following. As no object created yet, the output is character(0).\n\nls()\n\ncharacter(0)"
   },
   {
     "objectID": "chapter1.html#back-to-contents",
@@ -130,6 +130,13 @@
     "href": "chapter1.html#user-defined-functions",
     "title": "Chapter 1: Basic R Operation",
     "section": "User-Defined Functions",
-    "text": "User-Defined Functions\nThe form of an R function is\n\nmyfunction &lt;- function(argument1, argument2, ...){\n  statements\n  return(object)\n}"
+    "text": "User-Defined Functions\nThe form of an R function is\n\nmyfunction &lt;- function(argument1, argument2, ...){\n  statements\n  return(object)\n}\n\nLet’s create a function to calculate the length of the hypotenuse of an right angle triangle.\n\nhypotenuse &lt;- function(a,b){\n  hyp &lt;- sqrt(a^2+b^2)\n  return(hyp)\n}\n\nTo use the function, type\n\nhypotenuse(3,4)\n\n[1] 5"
+  },
+  {
+    "objectID": "about2.html",
+    "href": "about2.html",
+    "title": "About Me",
+    "section": "",
+    "text": "This is the about.qmd with the yml title: \"About Me\".\nThis page correspond to the About Me tape on the top."
   }
 ]

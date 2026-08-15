@@ -12,7 +12,8 @@ website:
       - contents.qmd
 
     right:
-      - about.qmd
+      - href: about.qmd
+        text: About Me
 
 format:
   html:

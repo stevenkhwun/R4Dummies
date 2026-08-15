@@ -7,7 +7,7 @@ format: html
 
 Every time you start an R session, you will be directed to a default working directory depends on how you starting the session.
 
-**The Working Directory**
+### *The Working Directory*
 
 In order to know the path to your working directory, type
 
@@ -15,7 +15,7 @@ In order to know the path to your working directory, type
 getwd()
 ```
 
-**Set Working Directory**
+### *Set Working Directory*
 
 You can set the working directory as below:
 
@@ -33,7 +33,7 @@ Since R uses `\` as an *escape character*, you can type the following code inste
 setwd("D:\\GitHub\\R4Dummies\\docs")
 ```
 
-**Objects in the environment by `ls()`**
+### *Objects in the environment by `ls()`*
 
 In order to see the objects in the environment, you can type the following. As no object created yet, the output is `character(0)`.
 
@@ -105,4 +105,32 @@ To use the function, type
 
 ```{r}
 hypotenuse(3,4)
+```
+
+## R Structures
+
+### *Vectors*
+
+The *vector* is the fundamental structure in R. It's an array of elements of the same type. The data elements in a vector are called *components*.
+
+**x**, **y**, and **z** above are samples of vector. We can create a *character vector* as follows:
+
+```{r}
+beatles <- c("john","paul","george","ringo")
+beatles
+```
+
+We can create a *logical vector* as follows:
+
+```{r}
+w <- c(T,F,F,T,T,F)
+w
+```
+
+To refer to a specific component of a vector, follow the vector name with a bracketed number:
+
+```{r}
+beatles[2]
+beatles[2:3]    # for consecutive components
+beatles[(2,4)]  # for non-consecutive components
 ```
