@@ -132,5 +132,5 @@ To refer to a specific component of a vector, follow the vector name with a brac
 ```{r}
 beatles[2]
 beatles[2:3]    # for consecutive components
-beatles[(2,4)]  # for non-consecutive components
+beatles[c(2,4)]  # for non-consecutive components
 ```

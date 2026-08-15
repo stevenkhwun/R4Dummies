@@ -138,5 +138,12 @@
     "title": "About Me",
     "section": "",
     "text": "This is the about.qmd with the yml title: \"About Me\".\nThis page correspond to the About Me tape on the top."
+  },
+  {
+    "objectID": "chapter1.html#r-structures",
+    "href": "chapter1.html#r-structures",
+    "title": "Chapter 1: Basic R Operation",
+    "section": "R Structures",
+    "text": "R Structures\n\nVectors\nThe vector is the fundamental structure in R. It’s an array of elements of the same type. The data elements in a vector are called components.\nx, y, and z above are samples of vector. We can create a character vector as follows:\n\nbeatles &lt;- c(\"john\",\"paul\",\"george\",\"ringo\")\nbeatles\n\n[1] \"john\"   \"paul\"   \"george\" \"ringo\" \n\n\nWe can create a logical vector as follows:\n\nw &lt;- c(T,F,F,T,T,F)\nw\n\n[1]  TRUE FALSE FALSE  TRUE  TRUE FALSE\n\n\nTo refer to a specific component of a vector, follow the vector name with a bracketed number:\n\nbeatles[2]\n\n[1] \"paul\"\n\nbeatles[2:3]    # for consecutive components\n\n[1] \"paul\"   \"george\"\n\nbeatles[c(2,4)]  # for non-consecutive components\n\n[1] \"paul\"  \"ringo\""
   }
 ]

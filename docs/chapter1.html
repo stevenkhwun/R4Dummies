@@ -165,6 +165,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#some-basic-operation" id="toc-some-basic-operation" class="nav-link" data-scroll-target="#some-basic-operation">Some basic operation</a></li>
   <li><a href="#r-functions" id="toc-r-functions" class="nav-link" data-scroll-target="#r-functions">R Functions</a></li>
   <li><a href="#user-defined-functions" id="toc-user-defined-functions" class="nav-link" data-scroll-target="#user-defined-functions">User-Defined Functions</a></li>
+  <li><a href="#r-structures" id="toc-r-structures" class="nav-link" data-scroll-target="#r-structures">R Structures</a>
+  <ul class="collapse">
+  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors"><em>Vectors</em></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -302,8 +306,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 5</code></pre>
 </div>
 </div>
+</section>
+<section id="r-structures" class="level2">
+<h2 class="anchored" data-anchor-id="r-structures">R Structures</h2>
+<section id="vectors" class="level3">
+<h3 class="anchored" data-anchor-id="vectors"><em>Vectors</em></h3>
+<p>The <em>vector</em> is the fundamental structure in R. It’s an array of elements of the same type. The data elements in a vector are called <em>components</em>.</p>
+<p><strong>x</strong>, <strong>y</strong>, and <strong>z</strong> above are samples of vector. We can create a <em>character vector</em> as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>beatles <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"john"</span>,<span class="st">"paul"</span>,<span class="st">"george"</span>,<span class="st">"ringo"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>beatles</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "john"   "paul"   "george" "ringo" </code></pre>
+</div>
+</div>
+<p>We can create a <em>logical vector</em> as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(T,F,F,T,T,F)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>w</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE FALSE FALSE  TRUE  TRUE FALSE</code></pre>
+</div>
+</div>
+<p>To refer to a specific component of a vector, follow the vector name with a bracketed number:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>beatles[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "paul"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>beatles[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]    <span class="co"># for consecutive components</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "paul"   "george"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>beatles[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)]  <span class="co"># for non-consecutive components</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "paul"  "ringo"</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
