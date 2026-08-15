@@ -2,8 +2,6 @@
 title: "About Me"
 ---
 
-About this site
+This is the `about.qmd` with the yml `title: "About Me"`.
 
-```{r}
-1 + 1
-```
+This page correspond to the `About Me` tape on the top.

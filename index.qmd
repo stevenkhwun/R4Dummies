@@ -2,7 +2,9 @@
 title: "About This Website"
 ---
 
-This is a Quarto website.
+This is the `index.qmd` with yml `title: "About This Website"`.
+
+This page should correspond to the `R4Dummies` tape at the top.
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 

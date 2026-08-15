@@ -6,10 +6,13 @@ website:
   title: "R4Dummies"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+#      - href: index.qmd
+#        text: Home
+#      - about.qmd
       - contents.qmd
+
+    right:
+      - about.qmd
 
 format:
   html:
