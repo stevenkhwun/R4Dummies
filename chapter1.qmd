@@ -17,28 +17,92 @@ getwd()
 
 **Set Working Directory**
 
-You can add options to executable code like this
+You can set the working directory as below:
 
 ```{r}
 #| eval: false
+# Code not evaluated
 setwd("D:/GitHub/R4Dummies/docs")
+```
+
+Since R uses `\` as an *escape character*, you can type the following code instead.
+
+```{r}
+#| eval: false
+# Code not evaluated
 setwd("D:\\GitHub\\R4Dummies\\docs")
-x = 1+2
+```
+
+**Objects in the environment by `ls()`**
+
+In order to see the objects in the environment, you can type the following. As no object created yet, the output is `character(0)`.
+
+```{r}
+ls()
+```
+
+## Some basic operation
+
+We can create a *vector* by the function `c()`. The following line of code can be read as "x gets the vector 5,10,15,20,25,30,35,40." And we can type **x** to get what **x** is.
+
+```{r}
+x <- c(5,10,15,20,25,30,35,40)
 x
 ```
 
-You can check the working directory by typing:
+Now, we have created an object **x**. We can check this by typing
 
 ```{r}
-getwd()
+ls()
 ```
+
+We can work with **x** with some basic function like the following:
+
+```{r}
+sum(x)
+mean(x)
+var(x)
+```
+
+## R Functions
+
+The examples above like `c()`, `sum()`, and etc. are *functions* built into R. Insides the parentheses are *arguments*. Some functions take no arguments and some functions take more than one argument. `seq()` is an example of multiargument function. We use it to build **y**, which is the same as **x**.
+
+```{r}
+y <- seq(5,40,5)
+y
+```
+
+The way to lick the arguments above is to list the arguments in the order that they appear in the function's definition. R calls this *positional mapping*. For `seq()` above, the first argument is the number to star the sequence *from* (5). The second argument is the number that ends the sequence - the number the sequence goes *to* (40). The third argument is the increment of the sequence - the amount the sequence increases *by* (5). If you *name* the arguments, it doesn't matter how you order them:
+
+```{r}
+z <- seq(to=40,by=5,from=5)
+z
+```
+
+## User-Defined Functions
+
+The form of an R function is
 
 ```{r}
 #| eval: false
-
-# This code is shown in the final report, but it is never executed/run
-x <- 10 + 5
-print(x)
+myfunction <- function(argument1, argument2, ...){
+  statements
+  return(object)
+}
 ```
 
+Let's create a function to calculate the length of the hypotenuse of an right angle triangle.
 
+```{r}
+hypotenuse <- function(a,b){
+  hyp <- sqrt(a^2+b^2)
+  return(hyp)
+}
+```
+
+To use the function, type
+
+```{r}
+hypotenuse(3,4)
+```

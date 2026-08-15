@@ -11,7 +11,7 @@
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "This is the about.qmd with the yml `title: “About Me”.\nThis page correspond to the About Me tape on the top."
+    "text": "This is the about.qmd with the yml title: \"About Me\".\nThis page correspond to the About Me tape on the top."
   },
   {
     "objectID": "contents.html",
@@ -60,7 +60,7 @@
     "href": "chapter1.html",
     "title": "Chapter 1: Basic R Operation",
     "section": "",
-    "text": "Every time you start an R session, you will be directed to a default working directory depends on how you starting the session.\nThe Working Directory\nIn order to know the path to your working directory, type\n\ngetwd()\n\n[1] \"D:/GitHub/R4Dummies\"\n\n\nSet Working Directory\nYou can add options to executable code like this\n\nsetwd(\"D:/GitHub/R4Dummies/docs\")\nsetwd(\"D:\\\\GitHub\\\\R4Dummies\\\\docs\")\nx = 1+2\nx\n\nYou can check the working directory by typing:\n\ngetwd()\n\n[1] \"D:/GitHub/R4Dummies\"\n\n\n\n# This code is shown in the final report, but it is never executed/run\nx &lt;- 10 + 5\nprint(x)"
+    "text": "Every time you start an R session, you will be directed to a default working directory depends on how you starting the session.\nThe Working Directory\nIn order to know the path to your working directory, type\n\ngetwd()\n\n[1] \"D:/GitHub/R4Dummies\"\n\n\nSet Working Directory\nYou can set the working directory as below:\n\n# Code not evaluated\nsetwd(\"D:/GitHub/R4Dummies/docs\")\n\nSince R uses \\ as an escape character, you can type the following code instead.\n\n# Code not evaluated\nsetwd(\"D:\\\\GitHub\\\\R4Dummies\\\\docs\")\n\nObjects in the environment by ls()\nIn order to see the objects in the environment, you can type the following. As no object created yet, the output is character(0).\n\nls()\n\ncharacter(0)"
   },
   {
     "objectID": "chapter1.html#quarto",
@@ -95,7 +95,7 @@
     "href": "chapter1.html#windows-file-path-in-r",
     "title": "Chapter 1: Basic R Operation",
     "section": "",
-    "text": "Every time you start an R session, you will be directed to a default working directory depends on how you starting the session.\nThe Working Directory\nIn order to know the path to your working directory, type\n\ngetwd()\n\n[1] \"D:/GitHub/R4Dummies\"\n\n\nSet Working Directory\nYou can add options to executable code like this\n\nsetwd(\"D:/GitHub/R4Dummies/docs\")\nsetwd(\"D:\\\\GitHub\\\\R4Dummies\\\\docs\")\nx = 1+2\nx\n\nYou can check the working directory by typing:\n\ngetwd()\n\n[1] \"D:/GitHub/R4Dummies\"\n\n\n\n# This code is shown in the final report, but it is never executed/run\nx &lt;- 10 + 5\nprint(x)"
+    "text": "Every time you start an R session, you will be directed to a default working directory depends on how you starting the session.\nThe Working Directory\nIn order to know the path to your working directory, type\n\ngetwd()\n\n[1] \"D:/GitHub/R4Dummies\"\n\n\nSet Working Directory\nYou can set the working directory as below:\n\n# Code not evaluated\nsetwd(\"D:/GitHub/R4Dummies/docs\")\n\nSince R uses \\ as an escape character, you can type the following code instead.\n\n# Code not evaluated\nsetwd(\"D:\\\\GitHub\\\\R4Dummies\\\\docs\")\n\nObjects in the environment by ls()\nIn order to see the objects in the environment, you can type the following. As no object created yet, the output is character(0).\n\nls()\n\ncharacter(0)"
   },
   {
     "objectID": "chapter1.html#back-to-contents",
@@ -103,5 +103,33 @@
     "title": "Chapter 1: Basic R Operation",
     "section": "Back to Contents",
     "text": "Back to Contents"
+  },
+  {
+    "objectID": "chapter1.html#some-basic-function",
+    "href": "chapter1.html#some-basic-function",
+    "title": "Chapter 1: Basic R Operation",
+    "section": "Some basic function",
+    "text": "Some basic function\nWe can create a vector by the function c(). The following line of code can be read as “x gets the vector 5,10,15,20,25,30,35,40.” And we can type x to get what x is.\n\nx &lt;- c(5,10,15,20,25,30,35,40)\nx\n\n[1]  5 10 15 20 25 30 35 40\n\n\nNow, we have created an object x. We can check this by typing\n\nls()\n\n[1] \"x\"\n\n\nWe can work with x with some basic function like the following:\n\nsum(x)\n\n[1] 180\n\nmean(x)\n\n[1] 22.5\n\nvar(x)\n\n[1] 150"
+  },
+  {
+    "objectID": "chapter1.html#some-basic-operation",
+    "href": "chapter1.html#some-basic-operation",
+    "title": "Chapter 1: Basic R Operation",
+    "section": "Some basic operation",
+    "text": "Some basic operation\nWe can create a vector by the function c(). The following line of code can be read as “x gets the vector 5,10,15,20,25,30,35,40.” And we can type x to get what x is.\n\nx &lt;- c(5,10,15,20,25,30,35,40)\nx\n\n[1]  5 10 15 20 25 30 35 40\n\n\nNow, we have created an object x. We can check this by typing\n\nls()\n\n[1] \"x\"\n\n\nWe can work with x with some basic function like the following:\n\nsum(x)\n\n[1] 180\n\nmean(x)\n\n[1] 22.5\n\nvar(x)\n\n[1] 150"
+  },
+  {
+    "objectID": "chapter1.html#r-functions",
+    "href": "chapter1.html#r-functions",
+    "title": "Chapter 1: Basic R Operation",
+    "section": "R Functions",
+    "text": "R Functions\nThe examples above like c(), sum(), and etc. are functions built into R. Insides the parentheses are arguments. Some functions take no arguments and some functions take more than one argument. seq() is an example of multiargument function. We use it to build y, which is the same as x.\n\ny &lt;- seq(5,40,5)\ny\n\n[1]  5 10 15 20 25 30 35 40\n\n\nThe way to lick the arguments above is to list the arguments in the order that they appear in the function’s definition. R calls this positional mapping. For seq() above, the first argument is the number to star the sequence from (5). The second argument is the number that ends the sequence - the number the sequence goes to (40). The third argument is the increment of the sequence - the amount the sequence increases by (5). If you name the arguments, it doesn’t matter how you order them:\n\nz &lt;- seq(to=40,by=5,from=5)\nz\n\n[1]  5 10 15 20 25 30 35 40"
+  },
+  {
+    "objectID": "chapter1.html#user-defined-functions",
+    "href": "chapter1.html#user-defined-functions",
+    "title": "Chapter 1: Basic R Operation",
+    "section": "User-Defined Functions",
+    "text": "User-Defined Functions\nThe form of an R function is\n\nmyfunction &lt;- function(argument1, argument2, ...){\n  statements\n  return(object)\n}"
   }
 ]
