@@ -1,0 +1,206 @@
+---
+title: "Chapter 11: Introducing Probability"
+format: html
+---
+
+## Permutations and Combinations
+
+Suppose you have to arrange $N$ objects into a sequence. In general, the number of sequences of $N$ objects is $N(N-1)(N-2)...(2)(1)$ and it has its own notation: $N!$. Suppose the task is to create $r$-objects sequences out of $N$ objects. Each sequence is called a *permutation*. In general, if you take permutations of $N$ things $r$ at a time, the notation is $_{N}P_{r}$. The formula is
+
+$$_{N}P_{r} = \frac{N!}{(N-r)!}$$
+
+Further, if repetitions are allowed in these sequences of $r$, the number of sequences is $N$ to the power of $r$, mathematically written as $N^r$.
+
+For permutations, if the order of the objects in the sequences are different, the sequences are different. However, for combinations, if the objects are the same and they are only different in the order, they will be counted as the same sequence. In general, the notation for combinations of $N$ things taken $r$ at a time is $_{N}C_{r}$. The formula is
+
+$$_{N}C_{r} = \frac{N!}{r!(N-r)!}$$
+
+### Functions for Counting Rules from Base R
+
+R provides `factorial()` for finding the factorial of a number:
+
+```{r}
+factorial(6)
+```
+
+You can also use this function to find the factorial of each number in a vector:
+
+```{r}
+xx <- c(2,3,4,5,6)
+factorial(xx)
+```
+
+For combinations, R provides a couple of possibilities. The `choose()` function calculates $_{N}C_{r}$ - the number of combinations of $N$ things taken $r$ at a time. So, for four things taken two at a time, that's
+
+```{r}
+choose(4,2)
+```
+
+To list all the combinations, use `combn()`. To illustrate with $_{4}C_{2}$, a vector containing the names of four of the Marx Brothers is created
+
+```{r}
+Marx.Bros <- c("Groucho","Chico","Harpo","Zeppo")
+```
+
+and list all possible combinations of them taken two at at time:
+
+```{r}
+combn(Marx.Bros,2)
+```
+
+This matrix tells us that six such combinations are possible.
+
+### Functions from the `gtools` package
+
+First, we load the `gtools` package:
+
+```{r}
+library(gtools)
+```
+
+Here are the `combinations()` and `permutations()` functions from `gtools` at work:
+
+```{r}
+combinations(4,2,v=Marx.Bros)
+```
+
+```{r}
+permutations(4,2,v=Marx.Bros)
+```
+
+If all you want to do is solve for the number of combinations:
+
+```{r}
+nrow(combinations(4,2))
+```
+
+Of course, you can do the same for permutations.
+
+## Probability Distributions and Density Functions
+
+### The Binomial Distribution
+
+The discrete random variable $x$ is the number of successes in the $N$ trials. This type of experiment is called a *binomial experiment*. The probability distribution for $x$ follows this rule:
+
+$$pr(x)=\frac{N!}{x!(N-x)!}p^x(1-p)^{(N-x)}$$
+
+The examples above like `c()`, `sum()`, and etc. are *functions* built into R. Insides the parentheses are *arguments*. Some functions take no arguments and some functions take more than one argument. `seq()` is an example of multiargument function. We use it to build **y**, which is the same as **x**.
+
+```{r}
+y <- seq(5,40,5)
+y
+```
+
+The way to lick the arguments above is to list the arguments in the order that they appear in the function's definition. R calls this *positional mapping*. For `seq()` above, the first argument is the number to star the sequence *from* (5). The second argument is the number that ends the sequence - the number the sequence goes *to* (40). The third argument is the increment of the sequence - the amount the sequence increases *by* (5). If you *name* the arguments, it doesn't matter how you order them:
+
+```{r}
+z <- seq(to=40,by=5,from=5)
+z
+```
+
+## User-Defined Functions
+
+The form of an R function is
+
+```{r}
+#| eval: false
+myfunction <- function(argument1, argument2, ...){
+  statements
+  return(object)
+}
+```
+
+Let's create a function to calculate the length of the hypotenuse of an right angle triangle.
+
+```{r}
+hypotenuse <- function(a,b){
+  hyp <- sqrt(a^2+b^2)
+  return(hyp)
+}
+```
+
+To use the function, type
+
+```{r}
+hypotenuse(3,4)
+```
+
+## R Structures
+
+### *Vectors*
+
+The *vector* is the fundamental structure in R. It's an array of elements of the same type. The data elements in a vector are called *components*.
+
+**x**, **y**, and **z** above are samples of vector. We can create a *character vector* as follows:
+
+```{r}
+beatles <- c("john","paul","george","ringo")
+beatles
+```
+
+We can create a *logical vector* as follows:
+
+```{r}
+w <- c(T,F,F,T,T,F)
+w
+```
+
+To refer to a specific component of a vector, follow the vector name with a bracketed number:
+
+```{r}
+beatles[2]
+beatles[2:3]    # for consecutive components
+beatles[c(2,4)]  # for non-consecutive components
+```
+
+### *Numerical vectors*
+
+In addition to `c()`, R provides two shortcut functions for creating numerical vectors. One, `seq()`, as showed earlier. Without the third argument sequence increases by 1:
+
+```{r}
+y <- seq(5,40)
+y
+```
+
+For creating a numerical vector whose elements increase by 1, the code can be simplified as follows:
+
+```{r}
+y <- 5:40
+y
+```
+
+Another function, `rep()`, creates a vector of repeating values:
+
+```{r}
+quadrifecta <- c(8,9,6,4)
+repeated_quadrifecta <- rep(quadrifecta,3)
+repeated_quadrifecta
+```
+
+You can also supply a vector as the second argument and this vector specifies the number of repetitions for each element.
+
+```{r}
+rep_vector <- c(1,2,3,4)
+repeated_quadrifecta <- rep(quadrifecta,rep_vector)
+repeated_quadrifecta
+```
+
+The first element repeats once; the second, twice; the third, three times; and the fourth, four times.
+
+You can use `append()` to add an item at teh end of a vector:
+
+```{r}
+xx <- 3:5
+xx
+```
+
+```{r}
+xx <- append(xx,6)
+xx
+```
+
+You get the number of items in a vector by:
+
+```{r}
+length(xx)
+```

@@ -29,5 +29,5 @@ format: html
 - \[Chapter 8: Curvilinear Regression: When Relationships Get Complicated\]
 - \[Chapter 9: In Due Time\]
 - \[Chapter 10: Non-Parametric Statistics\]
-- \[Chapter 11: Introducing Probability\]
+- [Chapter 11: Introducing Probability](chapter_3-11.qmd)
 - \[Chapter 12: Probability Meets Regression: Logistic Regression\]
