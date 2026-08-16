@@ -105,127 +105,93 @@ Of course, you can do the same for permutations.
 
 ### The Binomial Distribution
 
-The discrete random variable $x$ is the number of successes in the $N$ trials. This type of experiment is called a *binomial experiment*. The probability distribution for $x$ follows this rule:
+The discrete random variable $x$ is the number of successes in $N$ trials. This type of experiment is called a *binomial experiment*. The probability distribution for $x$ follows this rule:
 
 $$pr(x)=\frac{N!}{x!(N-x)!}p^x(1-p)^{(N-x)}$$
 
-The examples above like `c()`, `sum()`, and etc. are *functions* built into R. Insides the parentheses are *arguments*. Some functions take no arguments and some functions take more than one argument. `seq()` is an example of multiargument function. We use it to build **y**, which is the same as **x**.
+R provides the following functions for the binomial distribution: `dbinom()` (density function), `pbinom()` (cumulative distribution function), `qbinom()` (quantiles), and `rbinom()` (random number generation).
+
+To show a binomial distribution, we use `dbinom()` to plot the density function for the number of successes in ten tosses of a fair die.
 
 ```{r}
-y <- seq(5,40,5)
-y
+successes <- seq(0,10)                    # a vector for the number of successes
+probability <- dbinom(successes,10,1/6)   # a vector for the associated probabilities
 ```
 
-The way to lick the arguments above is to list the arguments in the order that they appear in the function's definition. R calls this *positional mapping*. For `seq()` above, the first argument is the number to star the sequence *from* (5). The second argument is the number that ends the sequence - the number the sequence goes *to* (40). The third argument is the increment of the sequence - the amount the sequence increases *by* (5). If you *name* the arguments, it doesn't matter how you order them:
+The first argument in the `dbinom()` function is the number of successes, the second is the number of trials, and the third is the probability of success.
+
+To plot this density function:
 
 ```{r}
-z <- seq(to=40,by=5,from=5)
-z
+library(ggplot2)
+ggplot(NULL, aes(x=successes, y=probability)) +
+  geom_bar(stat="identity", width=1, color="white")
 ```
 
-## User-Defined Functions
+The `NULL` argument ing `ggplot()` indicates that we haven't created a data frame - we are just using the `successes` and `probability` vectors. In `geom_bar()`, the `stat="identity"` argument indicates that the values in the `probability` vector set the heights of the bars, `width = 1` widens the bars a bit from the default width, and `color = "white"` adds clarity by drawing a white border around each bar.
 
-The form of an R function is
+We use `pbinom()` to show the cumulative distribution for the number of successes in ten tosses of a fair die:
 
 ```{r}
-#| eval: false
-myfunction <- function(argument1, argument2, ...){
-  statements
-  return(object)
-}
+cumulative <- pbinom(successes,10,1/6)
 ```
 
-Let's create a function to calculate the length of the hypotenuse of an right angle triangle.
+And here's the code for the plot:
 
 ```{r}
-hypotenuse <- function(a,b){
-  hyp <- sqrt(a^2+b^2)
-  return(hyp)
-}
+library(ggplot2)
+ggplot(NULL, aes(x=successes, y=cumulative)) +
+  geom_step()
 ```
 
-To use the function, type
+The `qbinom()` function computes quantile information. For every fifth quantile from the 10th through the 95th in the binomial distribution with $N=10$ and $p=1/6$:
 
 ```{r}
-hypotenuse(3,4)
+qbinom(seq(.10,.95,.05), 10, 1/6)
 ```
 
-## R Structures
-
-### *Vectors*
-
-The *vector* is the fundamental structure in R. It's an array of elements of the same type. The data elements in a vector are called *components*.
-
-**x**, **y**, and **z** above are samples of vector. We can create a *character vector* as follows:
+To sample five random numbers from this binomial distribution
 
 ```{r}
-beatles <- c("john","paul","george","ringo")
-beatles
+rbinom(5, 10, 1/6)
 ```
 
-We can create a *logical vector* as follows:
+### The Negative Binomial Distribution
+
+In a sequence of independent Bernoulli trials with success probability $p$, if $X$ is the number of failures before the $r$th success, then $X$ is said to have the Negative Binomial distribution with parameters $r$ and $p$, denoted $X \sim NBin(r,p)$.
+
+$$P(X=n) = \dbinom{n+r-1}{r-1}p^r(1-p)^n$$
+
+For the negative binomial functions, `dnbinom()` provides the density function, `pnbinom()` gives you the cumulative distribution function, `qnbinom()` give quantile information, and `rnbinom()` produces random numbers.
+
+Hence, the probability of five failures before the fourth success, using `dnbinom()`, is
 
 ```{r}
-w <- c(T,F,F,T,T,F)
-w
+dnbinom(5,4,1/6)
 ```
 
-To refer to a specific component of a vector, follow the vector name with a bracketed number:
+The first argument to `dnbinom()` is the number of failures, the second is the number of successes, and the third is the probability of a success.
+
+If I want to know the probability of five or fewer failures before the fourth success:
 
 ```{r}
-beatles[2]
-beatles[2:3]    # for consecutive components
-beatles[c(2,4)]  # for non-consecutive components
+pnbinom(5,4,1/6)
 ```
 
-### *Numerical vectors*
-
-In addition to `c()`, R provides two shortcut functions for creating numerical vectors. One, `seq()`, as showed earlier. Without the third argument sequence increases by 1:
+which is the same as
 
 ```{r}
-y <- seq(5,40)
-y
+sum(dnbinom(seq(0,5),4,1/6))
 ```
 
-For creating a numerical vector whose elements increase by 1, the code can be simplified as follows:
+For every fifth quantile from the 10th through the 95th of the number of failures before four successes (with $p=1/6$):
 
 ```{r}
-y <- 5:40
-y
+qnbinom(seq(.10,.95,.05), 4, 1/6)
 ```
 
-Another function, `rep()`, creates a vector of repeating values:
+And to sample five random numbers from the negative binomial with four successes and $p=1/6$:
 
 ```{r}
-quadrifecta <- c(8,9,6,4)
-repeated_quadrifecta <- rep(quadrifecta,3)
-repeated_quadrifecta
-```
-
-You can also supply a vector as the second argument and this vector specifies the number of repetitions for each element.
-
-```{r}
-rep_vector <- c(1,2,3,4)
-repeated_quadrifecta <- rep(quadrifecta,rep_vector)
-repeated_quadrifecta
-```
-
-The first element repeats once; the second, twice; the third, three times; and the fourth, four times.
-
-You can use `append()` to add an item at teh end of a vector:
-
-```{r}
-xx <- 3:5
-xx
-```
-
-```{r}
-xx <- append(xx,6)
-xx
-```
-
-You get the number of items in a vector by:
-
-```{r}
-length(xx)
+rnbinom(5,4,1/6)
 ```
