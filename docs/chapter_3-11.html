@@ -230,10 +230,12 @@ window.Quarto = {
 <p>Suppose you have to arrange <span class="math inline">\(N\)</span> objects into a sequence. In general, the number of sequences of <span class="math inline">\(N\)</span> objects is <span class="math inline">\(N(N-1)(N-2)...(2)(1)\)</span> and it has its own notation: <span class="math inline">\(N!\)</span>. Suppose the task is to create <span class="math inline">\(r\)</span>-objects sequences out of <span class="math inline">\(N\)</span> objects. Each sequence is called a <em>permutation</em>. In general, if you take permutations of <span class="math inline">\(N\)</span> things <span class="math inline">\(r\)</span> at a time, the notation is <span class="math inline">\(_{N}P_{r}\)</span>. The formula is</p>
 <p><span class="math display">\[_{N}P_{r} = \frac{N!}{(N-r)!}\]</span></p>
 <p>Further, if repetitions are allowed in these sequences of <span class="math inline">\(r\)</span>, the number of sequences is <span class="math inline">\(N\)</span> to the power of <span class="math inline">\(r\)</span>, mathematically written as <span class="math inline">\(N^r\)</span>.</p>
-<p>For permutations, if the order of the objects in the sequences are different, the sequences are different. However, for combinations, if the objects are the same and they are only different in the order, they will be counted as the same sequence. In general, the notation for combinations of <span class="math inline">\(N\)</span> things taken <span class="math inline">\(r\)</span> at a time is <span class="math inline">\(_{N}C_{r}\)</span>. The formula is</p>
+<p>For permutations, the sequences are different if the order of the objects in the sequences are different. However, for combinations, if the objects are the same and they are only different in order, they will be treated as the same sequence. In general, the notation for combinations of <span class="math inline">\(N\)</span> things taken <span class="math inline">\(r\)</span> at a time is <span class="math inline">\(_{N}C_{r}\)</span>. The formula is</p>
 <p><span class="math display">\[_{N}C_{r} = \frac{N!}{r!(N-r)!}\]</span></p>
 <section id="functions-for-counting-rules-from-base-r" class="level3">
 <h3 class="anchored" data-anchor-id="functions-for-counting-rules-from-base-r">Functions for Counting Rules from Base R</h3>
+<section id="factorial-number-of-arrangements-for-n-objects" class="level4">
+<h4 class="anchored" data-anchor-id="factorial-number-of-arrangements-for-n-objects">Factorial (Number of arrangements for <span class="math inline">\(N\)</span> objects)</h4>
 <p>R provides <code>factorial()</code> for finding the factorial of a number:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factorial</span>(<span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -249,6 +251,9 @@ window.Quarto = {
 <pre><code>[1]   2   6  24 120 720</code></pre>
 </div>
 </div>
+</section>
+<section id="combinations-choose-r-objects-from-n-objects-order-irrelevant" class="level4">
+<h4 class="anchored" data-anchor-id="combinations-choose-r-objects-from-n-objects-order-irrelevant">Combinations (Choose <span class="math inline">\(r\)</span> objects from <span class="math inline">\(N\)</span> objects, order irrelevant)</h4>
 <p>For combinations, R provides a couple of possibilities. The <code>choose()</code> function calculates <span class="math inline">\(_{N}C_{r}\)</span> - the number of combinations of <span class="math inline">\(N\)</span> things taken <span class="math inline">\(r\)</span> at a time. So, for four things taken two at a time, that’s</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">4</span>,<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -271,15 +276,55 @@ window.Quarto = {
 </div>
 <p>This matrix tells us that six such combinations are possible.</p>
 </section>
+<section id="choosing-objects-with-replacement-allowed" class="level4">
+<h4 class="anchored" data-anchor-id="choosing-objects-with-replacement-allowed">Choosing objects with replacement allowed</h4>
+<p>We now use the R code to confirm that the number of outcomes for selecting objects with repetition (replacement) is <span class="math inline">\(N^r\)</span>, that is selecting <span class="math inline">\(r\)</span> objects from a pool of <span class="math inline">\(N\)</span> objects with replacement.</p>
+<p>Suppose that there is a bag containing four balls with colours red, blue, green and yellow. We will totally draw two balls. After drawing one ball, we put it back to the bag and then drawing the other ball. In theory, the total number of combinations of the select balls are <span class="math inline">\(4^2\)</span>, or 16. We use the <code>expand.grid()</code> function to perform this experiment.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the four colours in the bag</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bag_colours <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Red"</span>,<span class="st">"Blue"</span>,<span class="st">"Green"</span>,<span class="st">"Yellow"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate all combinations of selecting two colours with replacement</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">Colour_1 =</span> bag_colours, <span class="at">Colour_2 =</span> bag_colours)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># List out all the outcomes</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(outcomes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Colour_1 Colour_2
+1       Red      Red
+2      Blue      Red
+3     Green      Red
+4    Yellow      Red
+5       Red     Blue
+6      Blue     Blue
+7     Green     Blue
+8    Yellow     Blue
+9       Red    Green
+10     Blue    Green
+11    Green    Green
+12   Yellow    Green
+13      Red   Yellow
+14     Blue   Yellow
+15    Green   Yellow
+16   Yellow   Yellow</code></pre>
+</div>
+</div>
+<p>Or you can display the number of outcomes by:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(outcomes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16</code></pre>
+</div>
+</div>
+</section>
+</section>
 <section id="functions-from-the-gtools-package" class="level3">
 <h3 class="anchored" data-anchor-id="functions-from-the-gtools-package">Functions from the <code>gtools</code> package</h3>
 <p>First, we load the <code>gtools</code> package:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtools)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtools)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here are the <code>combinations()</code> and <code>permutations()</code> functions from <code>gtools</code> at work:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">combinations</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="at">v=</span>Marx.Bros)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">combinations</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="at">v=</span>Marx.Bros)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1]      [,2]     
 [1,] "Chico"   "Groucho"
@@ -291,7 +336,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">permutations</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="at">v=</span>Marx.Bros)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">permutations</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="at">v=</span>Marx.Bros)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      [,1]      [,2]     
  [1,] "Chico"   "Groucho"
@@ -310,7 +355,7 @@ window.Quarto = {
 </div>
 <p>If all you want to do is solve for the number of combinations:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">combinations</span>(<span class="dv">4</span>,<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">combinations</span>(<span class="dv">4</span>,<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
@@ -326,16 +371,16 @@ window.Quarto = {
 <p><span class="math display">\[pr(x)=\frac{N!}{x!(N-x)!}p^x(1-p)^{(N-x)}\]</span></p>
 <p>The examples above like <code>c()</code>, <code>sum()</code>, and etc. are <em>functions</em> built into R. Insides the parentheses are <em>arguments</em>. Some functions take no arguments and some functions take more than one argument. <code>seq()</code> is an example of multiargument function. We use it to build <strong>y</strong>, which is the same as <strong>x</strong>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">40</span>,<span class="dv">5</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">40</span>,<span class="dv">5</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  5 10 15 20 25 30 35 40</code></pre>
 </div>
 </div>
 <p>The way to lick the arguments above is to list the arguments in the order that they appear in the function’s definition. R calls this <em>positional mapping</em>. For <code>seq()</code> above, the first argument is the number to star the sequence <em>from</em> (5). The second argument is the number that ends the sequence - the number the sequence goes <em>to</em> (40). The third argument is the increment of the sequence - the amount the sequence increases <em>by</em> (5). If you <em>name</em> the arguments, it doesn’t matter how you order them:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">to=</span><span class="dv">40</span>,<span class="at">by=</span><span class="dv">5</span>,<span class="at">from=</span><span class="dv">5</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">to=</span><span class="dv">40</span>,<span class="at">by=</span><span class="dv">5</span>,<span class="at">from=</span><span class="dv">5</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  5 10 15 20 25 30 35 40</code></pre>
 </div>
@@ -346,21 +391,21 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="user-defined-functions">User-Defined Functions</h2>
 <p>The form of an R function is</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>myfunction <span class="ot">&lt;-</span> <span class="cf">function</span>(argument1, argument2, ...){</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  statements</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(object)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>myfunction <span class="ot">&lt;-</span> <span class="cf">function</span>(argument1, argument2, ...){</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  statements</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(object)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let’s create a function to calculate the length of the hypotenuse of an right angle triangle.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>hypotenuse <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  hyp <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(a<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span>b<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(hyp)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>hypotenuse <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  hyp <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(a<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span>b<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(hyp)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To use the function, type</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypotenuse</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hypotenuse</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5</code></pre>
 </div>
@@ -373,31 +418,31 @@ window.Quarto = {
 <p>The <em>vector</em> is the fundamental structure in R. It’s an array of elements of the same type. The data elements in a vector are called <em>components</em>.</p>
 <p><strong>x</strong>, <strong>y</strong>, and <strong>z</strong> above are samples of vector. We can create a <em>character vector</em> as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>beatles <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"john"</span>,<span class="st">"paul"</span>,<span class="st">"george"</span>,<span class="st">"ringo"</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>beatles</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>beatles <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"john"</span>,<span class="st">"paul"</span>,<span class="st">"george"</span>,<span class="st">"ringo"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>beatles</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "john"   "paul"   "george" "ringo" </code></pre>
 </div>
 </div>
 <p>We can create a <em>logical vector</em> as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(T,F,F,T,T,F)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>w</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(T,F,F,T,T,F)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>w</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  TRUE FALSE FALSE  TRUE  TRUE FALSE</code></pre>
 </div>
 </div>
 <p>To refer to a specific component of a vector, follow the vector name with a bracketed number:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>beatles[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>beatles[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "paul"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>beatles[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]    <span class="co"># for consecutive components</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>beatles[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]    <span class="co"># for consecutive components</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "paul"   "george"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>beatles[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)]  <span class="co"># for non-consecutive components</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>beatles[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)]  <span class="co"># for non-consecutive components</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "paul"  "ringo"</code></pre>
 </div>
@@ -407,8 +452,8 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="numerical-vectors"><em>Numerical vectors</em></h3>
 <p>In addition to <code>c()</code>, R provides two shortcut functions for creating numerical vectors. One, <code>seq()</code>, as showed earlier. Without the third argument sequence increases by 1:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">40</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">40</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 [26] 30 31 32 33 34 35 36 37 38 39 40</code></pre>
@@ -416,8 +461,8 @@ window.Quarto = {
 </div>
 <p>For creating a numerical vector whose elements increase by 1, the code can be simplified as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">40</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">40</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 [26] 30 31 32 33 34 35 36 37 38 39 40</code></pre>
@@ -425,18 +470,18 @@ window.Quarto = {
 </div>
 <p>Another function, <code>rep()</code>, creates a vector of repeating values:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>quadrifecta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">6</span>,<span class="dv">4</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>repeated_quadrifecta <span class="ot">&lt;-</span> <span class="fu">rep</span>(quadrifecta,<span class="dv">3</span>)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>repeated_quadrifecta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>quadrifecta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">6</span>,<span class="dv">4</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>repeated_quadrifecta <span class="ot">&lt;-</span> <span class="fu">rep</span>(quadrifecta,<span class="dv">3</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>repeated_quadrifecta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 8 9 6 4 8 9 6 4 8 9 6 4</code></pre>
 </div>
 </div>
 <p>You can also supply a vector as the second argument and this vector specifies the number of repetitions for each element.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>rep_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>repeated_quadrifecta <span class="ot">&lt;-</span> <span class="fu">rep</span>(quadrifecta,rep_vector)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>repeated_quadrifecta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>rep_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>repeated_quadrifecta <span class="ot">&lt;-</span> <span class="fu">rep</span>(quadrifecta,rep_vector)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>repeated_quadrifecta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 8 9 9 6 6 6 4 4 4 4</code></pre>
 </div>
@@ -444,22 +489,22 @@ window.Quarto = {
 <p>The first element repeats once; the second, twice; the third, three times; and the fourth, four times.</p>
 <p>You can use <code>append()</code> to add an item at teh end of a vector:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>xx</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>xx</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3 4 5</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">append</span>(xx,<span class="dv">6</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>xx</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>xx <span class="ot">&lt;-</span> <span class="fu">append</span>(xx,<span class="dv">6</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>xx</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3 4 5 6</code></pre>
 </div>
 </div>
 <p>You get the number of items in a vector by:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(xx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(xx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>

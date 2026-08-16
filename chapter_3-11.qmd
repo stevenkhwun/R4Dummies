@@ -11,11 +11,13 @@ $$_{N}P_{r} = \frac{N!}{(N-r)!}$$
 
 Further, if repetitions are allowed in these sequences of $r$, the number of sequences is $N$ to the power of $r$, mathematically written as $N^r$.
 
-For permutations, if the order of the objects in the sequences are different, the sequences are different. However, for combinations, if the objects are the same and they are only different in the order, they will be counted as the same sequence. In general, the notation for combinations of $N$ things taken $r$ at a time is $_{N}C_{r}$. The formula is
+For permutations, the sequences are different if the order of the objects in the sequences are different. However, for combinations, if the objects are the same and they are only different in order, they will be treated as the same sequence. In general, the notation for combinations of $N$ things taken $r$ at a time is $_{N}C_{r}$. The formula is
 
 $$_{N}C_{r} = \frac{N!}{r!(N-r)!}$$
 
 ### Functions for Counting Rules from Base R
+
+#### Factorial (Number of arrangements for $N$ objects)
 
 R provides `factorial()` for finding the factorial of a number:
 
@@ -29,6 +31,8 @@ You can also use this function to find the factorial of each number in a vector:
 xx <- c(2,3,4,5,6)
 factorial(xx)
 ```
+
+#### Combinations (Choose $r$ objects from $N$ objects, order irrelevant)
 
 For combinations, R provides a couple of possibilities. The `choose()` function calculates $_{N}C_{r}$ - the number of combinations of $N$ things taken $r$ at a time. So, for four things taken two at a time, that's
 
@@ -49,6 +53,27 @@ combn(Marx.Bros,2)
 ```
 
 This matrix tells us that six such combinations are possible.
+
+#### Choosing objects with replacement allowed
+
+We now use the R code to confirm that the number of outcomes for selecting objects with repetition (replacement) is $N^r$, that is selecting $r$ objects from a pool of $N$ objects with replacement.
+
+Suppose that there is a bag containing four balls with colours red, blue, green and yellow. We will totally draw two balls. After drawing one ball, we put it back to the bag and then drawing the other ball. In theory, the total number of combinations of the selected balls are $4^2$, or 16. We use the `expand.grid()` function to perform this experiment.
+
+```{r}
+# Define the four colours in the bag
+bag_colours <- c("Red","Blue","Green","Yellow")
+# Generate all combinations of selecting two colours with replacement
+outcomes <- expand.grid(Colour_1 = bag_colours, Colour_2 = bag_colours)
+# List out all the outcomes
+print(outcomes)
+```
+
+Or you can display the number of outcomes by:
+
+```{r}
+nrow(outcomes)
+```
 
 ### Functions from the `gtools` package
 
